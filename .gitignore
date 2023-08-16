@@ -19,3 +19,5 @@
 
 # Go workspace file
 go.work
+# 排除goland的相关配置
+.idea/
