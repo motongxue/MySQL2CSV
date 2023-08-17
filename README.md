@@ -69,6 +69,29 @@ password = "root" # Password
 table = "users"                 # Table name
 columns = "name,age,email"      # Column names
 ```
+
+## Project Structure
+```
+MySQL2CSV/
+├── cmd/                
+│   ├── init.go             # Initialization
+├── conf/                   # Configuration files
+│   ├── config.go           # Configuration file parsing
+│   ├── load.go             # Load configuration file
+├── models/                 # Data models
+│   └── models.go           # Table definitions
+├── output/                 # Output files
+│   └── output.csv          # Data model definitions
+├── utils/                  # Utility packages
+│   ├── csv.go              # CSV file handling
+│   ├── hash.go             # Hashing functions
+├── config.toml             # Configuration file containing database connection and export settings
+├── main.go                 # Main application entry point
+├── LICENSE                 # License file
+├── README.md               # Project documentation
+└── README.zh-Hans.md       # Simplified Chinese version of the project documentation
+```
+
 ## Contribution
 Feel free to raise issues, suggest enhancements, and contribute to the project. Make sure to read the contribution guidelines before submitting a Pull Request.
 

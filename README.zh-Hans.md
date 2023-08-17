@@ -68,6 +68,28 @@ table = "users"                 # 表名
 columns = "name,age,email"      # 列名
 ```
 
+## 项目结构
+```
+MySQL2CSV/
+├── cmd/                
+│   ├── init.go             # 初始化
+├── conf/                   # 配置文件
+│   ├── config.go           # 配置文件解析
+│   ├── load.go             # 加载配置文件
+├── models/                 # 数据模型
+│   └── models.go           # 表定义
+├── output/                 # 输出文件
+│   └── output.csv          # 数据模型定义
+├── utils/                  # 工具包
+│   ├── csv.go              # CSV文件处理
+│   ├── hash.go             # CSV文件处理
+├── config.toml             # 配置文件，包含数据库连接和导出设置
+├── main.go                 # 主应用程序入口
+├── LICENSE                 # 许可证文件
+├── README.md               # 项目说明文档
+└── README.zh-Hans.md       # 项目说明文档
+```
+
 ## 贡献
 
 欢迎提出问题和建议，以及参与到项目的贡献中来。在提交 Pull Request 之前，请确保您已经阅读了贡献指南。
