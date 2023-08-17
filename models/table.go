@@ -8,13 +8,11 @@ import (
 
 type Table struct {
 	TableName string
-	// 表名统一用字符串存储
-	ColName []string
-	Cols    string
+	ColName   []string // 表名统一用字符串存储
+	Cols      string
 }
 
 func NewTable() (*Table, error) {
-
 	columns := conf.C().MySQL.Columns
 	table := conf.C().MySQL.Table
 	if columns == "" || table == "" {

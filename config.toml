@@ -4,6 +4,8 @@ name = "MySQL2CSV"
 output_dir = "./output/" # 输出文件目录
 thread_num = 12          # 线程数
 batch_size = 1000000     # 批量大小
+output_file_name = "test_output_file_name" # 输出文件名
+save_tmp_file = "false"     # 是否保存临时文件
 
 # 配置mysql
 [mysql]
@@ -13,4 +15,4 @@ database = "db_test"            # 数据库
 username = "root"               # 用户名
 password = "wed5ch7dl6ds2mysql" # 密码
 table = "users"                 # 表名
-columns = "name,age,email"      # 列名
+columns = "name,age,email,test_col"      # 列名

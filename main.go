@@ -66,7 +66,7 @@ func main() {
 	}
 
 	// ========将所有文件合并========
-	outputFile, err := utils.MergeToFile(table, hashStr, appConf.ThreadNum, appConf.OutputDir)
+	outputFile, err := utils.MergeToFile(appConf, table, hashStr, appConf.ThreadNum, appConf.OutputDir)
 	if err != nil {
 		log.Fatal(err)
 	}

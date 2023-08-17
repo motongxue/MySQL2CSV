@@ -31,10 +31,12 @@ func (c *Config) InitGlobal() error {
 }
 
 type App struct {
-	Name      string `toml:"name"`
-	OutputDir string `toml:"output_dir"` // 输出文件目录
-	ThreadNum int    `toml:"thread_num"` // 线程数
-	BatchSize int    `toml:"batch_size"` // 每次查询的记录数
+	Name           string `toml:"name"`
+	OutputDir      string `toml:"output_dir"`       // 输出文件目录
+	ThreadNum      int    `toml:"thread_num"`       // 线程数
+	BatchSize      int    `toml:"batch_size"`       // 每次查询的记录数
+	OutputFileName string `toml:"output_file_name"` // 输出文件名
+	SaveTmpFile    string `toml:"save_tmp_file"`    // 是否保存临时文件
 }
 
 func newDefaultAPP() *App {
