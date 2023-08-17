@@ -90,7 +90,7 @@ func MergeToFile(appConf *conf.App, table *models.Table, hashStr string, threadN
 	// 根据参数动态化配置
 	var outputFile string
 	if appConf.OutputFileName != "" {
-		outputFile = fmt.Sprintf("%s%s_output.csv", outputDir, appConf.OutputFileName)
+		outputFile = fmt.Sprintf("%s%s.csv", outputDir, appConf.OutputFileName)
 	} else {
 		outputFile = fmt.Sprintf("%s%s_%s_%s_output.csv", outputDir, table.TableName, table.Cols, hashStr)
 	}

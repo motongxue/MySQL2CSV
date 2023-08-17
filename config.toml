@@ -1,11 +1,11 @@
 # 配置应用，默认可以不更改
 [app]
 name = "MySQL2CSV"
-output_dir = "./output/" # 输出文件目录
-thread_num = 12          # 线程数
-batch_size = 10000     # 批量大小
-output_file_name = "output_file_name" # 输出文件名
-save_tmp_file = "false"     # 是否保存临时文件
+thread_num = 12                         # 线程数
+batch_size = 10000                      # 批量大小
+output_dir = "./output/"                # 输出文件目录
+output_file_name = "output_file_name"   # 输出文件名
+save_tmp_file = "true"                 # 是否保存临时文件
 
 # 配置mysql
 [mysql]
