@@ -3,7 +3,7 @@
 name = "MySQL2CSV"
 output_dir = "./output/" # 输出文件目录
 thread_num = 12          # 线程数
-batch_size = 1000000     # 批量大小
+batch_size = 10000     # 批量大小
 output_file_name = "test_output_file_name" # 输出文件名
 save_tmp_file = "false"     # 是否保存临时文件
 

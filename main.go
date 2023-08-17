@@ -46,7 +46,7 @@ func main() {
 	if err := db.QueryRow(countSql).Scan(&total); err != nil {
 		log.Fatal(err)
 	}
-	// ========计算每个携程处理的范围========
+	// ========计算每个协程处理的范围========
 	log.Printf("total size of table %s is %d\n", table.TableName, total)
 	blockSize := total / appConf.ThreadNum
 	blocks := make([][2]int, appConf.ThreadNum)
@@ -58,13 +58,21 @@ func main() {
 		}
 	}
 
-	// ========开启携程========
+	// ========开启协程========
 	errChan := make(chan error, appConf.ThreadNum)
 	err = utils.ExportToCSVConcurrently(appConf, table, db, blocks, hashStr, errChan)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// ========处理协程返回的错误========
+	// 关闭errChan
+	close(errChan)
+	for err := range errChan {
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	// ========将所有文件合并========
 	outputFile, err := utils.MergeToFile(appConf, table, hashStr, appConf.ThreadNum, appConf.OutputDir)
 	if err != nil {
