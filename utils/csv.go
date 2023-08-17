@@ -26,6 +26,13 @@ func ExportToCSVConcurrently(appConf *conf.App, table *models.Table, db *sql.DB,
 			defer wg.Done()
 			var err error // Declare an error variable
 			// 开始导出csv文件
+			// filename路劲中存在目录则创建目录
+			err = CreateIfAbsent(filename)
+
+			if err != nil {
+				return err
+			}
+
 			file, err := os.Create(filename)
 			if err != nil {
 				return err
@@ -65,6 +72,7 @@ func ExportToCSVConcurrently(appConf *conf.App, table *models.Table, db *sql.DB,
 				}
 			}
 			if err != nil {
+				// TODO
 				errChan <- err // Send the error to the channel
 			}
 			// 要加上前缀，用来区分不同的文件
@@ -85,6 +93,12 @@ func MergeToFile(appConf *conf.App, table *models.Table, hashStr string, threadN
 		outputFile = fmt.Sprintf("%s%s_output.csv", outputDir, appConf.OutputFileName)
 	} else {
 		outputFile = fmt.Sprintf("%s%s_%s_%s_output.csv", outputDir, table.TableName, table.Cols, hashStr)
+	}
+	// filename路劲中存在目录则创建目录
+	err := CreateIfAbsent(outputFile)
+
+	if err != nil {
+		return "", err
 	}
 	outFile, err := os.Create(outputFile)
 	if err != nil {
@@ -108,7 +122,6 @@ func MergeToFile(appConf *conf.App, table *models.Table, hashStr string, threadN
 		if err != nil {
 			return "", err
 		}
-		// defer file.Close()
 
 		// 开始读取文件
 		scanner := bufio.NewScanner(file)
@@ -132,4 +145,14 @@ func MergeToFile(appConf *conf.App, table *models.Table, hashStr string, threadN
 
 	}
 	return outputFile, nil
+}
+
+func CreateIfAbsent(outputFile string) error {
+	if strings.Contains(outputFile, "/") {
+		dir := outputFile[:strings.LastIndex(outputFile, "/")]
+		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+			return err
+		}
+	}
+	return nil
 }
