@@ -67,7 +67,6 @@ func main() {
 
 	// ========处理协程返回的错误========
 	// 关闭errChan
-	close(errChan)
 	for err := range errChan {
 		if err != nil {
 			log.Fatal(err)
