@@ -1,0 +1,16 @@
+# 配置应用，默认可以不更改
+[app]
+name = "MySQL2CSV"
+output_dir = "./output/" # 输出文件目录
+thread_num = 12          # 线程数
+batch_size = 1000000     # 批量大小
+
+# 配置mysql
+[mysql]
+host = "172.22.121.54"          # 主机
+port = "3360"                   # 端口
+database = "db_test"            # 数据库
+username = "root"               # 用户名
+password = "wed5ch7dl6ds2mysql" # 密码
+table = "users"                 # 表名
+columns = "name,age,email"      # 列名
