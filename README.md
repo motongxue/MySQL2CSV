@@ -92,6 +92,31 @@ MySQL2CSV/
 └── README.zh-Hans.md       # Simplified Chinese version of the project documentation
 ```
 
+## Project Logic
+1. **Establishment of Data Connection Pool:**
+At the system's initialization, we first establish a data connection pool to ensure efficient access to the required data.
+
+2. **Querying Work Order Count:**
+Based on specific query conditions, we retrieve the count of work orders that meet the criteria from the database, referred to as "total," to prepare for subsequent operations.
+
+3. **Work Order Segmentation and Allocation:**
+Based on the total count of work orders, "total," and the specified number of threads, we segment the work orders and evenly distribute them among each thread. The number of threads is determined by "thread_num."
+
+4. **Calculation of Data Volume per Thread:**
+To ensure effective data processing by each thread, we calculate the amount of data each thread needs to handle, referred to as "avg_num." This is calculated as "total/thread_num."
+
+5. **Setting Quantity Processed per Iteration:**
+We define the quantity of data each thread needs to process during each task execution. This setting is referred to as "batch_size." It determines the workload processed per iteration.
+
+6. **Creation of Goroutines:**
+Once prepared, we create "thread_num" goroutines to set the stage for subsequent task execution.
+
+7. **Execution of CSV Export Tasks:**
+Each goroutine executes an individual CSV export command task. These export tasks need to be handled in a paginated manner to ensure the orderly export of data.
+
+8. **Calculation of Pagination Page Numbers:**
+The starting page number ("pageNo") for each export command is calculated based on the goroutine's assigned number. For example, the starting pageNo for the third goroutine is calculated as "(3-1)*avg_num."
+
 ## Contribution
 Feel free to raise issues, suggest enhancements, and contribute to the project. Make sure to read the contribution guidelines before submitting a Pull Request.
 
