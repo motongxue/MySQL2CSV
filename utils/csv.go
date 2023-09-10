@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/motongxue/MySQL2CSV/conf"
 	"github.com/motongxue/MySQL2CSV/models"
+	"io"
 	"os"
 	"strings"
 	"sync"
@@ -122,15 +123,10 @@ func MergeToFile(appConf *conf.App, table *models.Table, hashStr string, threadN
 		if err != nil {
 			return "", err
 		}
-
-		// 开始读取文件
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			record := scanner.Text()
-			if len(record) == 0 {
-				continue
-			}
-			writer.WriteString(fmt.Sprintf("%s\n", record))
+		// 利用io.Copy优化拷贝流程
+		_, err = io.Copy(writer, file)
+		if err != nil {
+			return "", err
 		}
 		file.Close()
 		if strings.ToLower(appConf.SaveTmpFile) == "true" {
